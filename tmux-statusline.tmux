@@ -13,8 +13,6 @@ t_set() {
 }
 
 # ------- CUSTOMIZATION --------------
-MAIN_ICON=$(t_option @tmux_line_indicator 'TMUX')
-DATE_FORMAT=$(t_option @tmux_power_date_format '%F')
 STYLE=$(t_option @tmux_line_style 'angled')
 JUSTIFY=$(t_option @tmux_line_justify 'left')
 
@@ -30,6 +28,25 @@ DARK_GREY=$(t_option @tmux_line_color_dark_grey "#282c34")
 NIL=$(t_option @tmux_line_color_nil "default")
 
 STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
+
+# TODO modules 
+RAM="#(free -h | awk '/^Mem:/ {gsub(\"Gi\", \"GB\", \$3); gsub(\"Gi\", \"GB\", \$2); print \"RAM \" \$3 \"/\" \$2}')"
+CPU="#(top -bn1 | grep \"Cpu(s)\" | awk '{printf \"CPU %04.1f%%\", \$2 + \$4}')"
+GIT="#(git -C #{pane_current_path} branch --show-current  | xargs -I {} echo  {})"
+DATE_FORMAT=$(t_option @tmux_power_date_format '%H:%M')
+SESSION="#S"
+USER="#(whoami)"
+CUSTOM=$(t_option @tmux_line_indicator 'TMUX')
+
+MODULE_A=$CUSTOM
+MODULE_B=$USER
+MODULE_C=$SESSION
+
+MODULE_X=$SESSION
+MODULE_Y=$RAM
+MODULE_Z=$DATE_FORMAT
+
+
 
 # ---------------------------------------
 case $STYLE in
@@ -74,18 +91,18 @@ t_set status-attr none
 # ---------------------- LEFT SIDE OF STATUS BAR
 t_set status-left-length 150
 
-LS="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MAIN_ICON #[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$rarrow"
-LS="$LS#[fg=$WHITE,bg=$LIGHT_GREY] #(whoami) #[fg=$LIGHT_GREY,bg=$NIL]$rarrow"
+LS="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_A #[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$rarrow"
+LS="$LS#[fg=$WHITE,bg=$LIGHT_GREY] $MODULE_B #[fg=$LIGHT_GREY,bg=$DARK_GREY]$rarrow $MODULE_C #[fg=$DARK_GREY,bg=$NIL]$rarrow"
 
 t_set status-left "$LS"
 
 # --------------------- RIGHT SIDE OF STATUS BAR
 t_set status-right-length 150
 
-RS="#[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$larrow#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $DATE_FORMAT⠀"
-RS="#[fg=$LIGHT_GREY]$larrow#[fg=$WHITE]#[bg=$LIGHT_GREY]#[bold] #(git -C #{pane_current_path} branch --show-current  | xargs -I {} echo  {}) $RS"
+RS="#[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$larrow#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
+RS="#[fg=$LIGHT_GREY]$larrow#[fg=$WHITE]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y $RS"
 
-RS="#[fg=$DARK_GREY,bg=$NIL]$larrow#[fg=$WHITE,bg=$DARK_GREY] #S $RS"
+RS="#[fg=$DARK_GREY,bg=$NIL]$larrow#[fg=$WHITE,bg=$DARK_GREY] $MODULE_X $RS"
 
 t_set status-right "$RS"
 
