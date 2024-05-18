@@ -21,35 +21,75 @@ BASE=$(t_option @line_color_base "#698DDA")
 SYNC=$(t_option @line_color_sync "#e06c75")
 PREFIX=$(t_option @line_color_prefix "#c678dd")
 COPY=$(t_option @line_color_copy "#98c379")
+STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
 
 FOREGROUND=$(t_option @line_color_fg "#abb2bf")
 LIGHT_GREY=$(t_option @line_color_light_grey "#3e4452")
 DARK_GREY=$(t_option @line_color_dark_grey "#282c34")
 BACKGROUND=$(t_option @line_color_bg "default")
 
+# ------- SPECIAL MODULES CONFIGURATION ------
 DATE_FORMAT=$(t_option @tmux_power_date_format '%H:%M')
+INDICATOR=$(t_option @tmux_line_indicator 'TMUX')
+
+# ------ MODULES CONFIGURATION ------
+MODULE_A=$(t_option @tmux_line_module_a 'TITLE')
+MODULE_B=$(t_option @tmux_line_module_b 'USER')
+MODULE_C=$(t_option @tmux_line_module_c 'SESSION')
+MODULE_X=$(t_option @tmux_line_module_x 'WEATHER')
+MODULE_Y=$(t_option @tmux_line_module_y 'RAM')
+MODULE_Z=$(t_option @tmux_line_module_z 'TIME')
 
 # MODULES OPTIONS
 RAM="#(free -h | awk '/^Mem:/ {gsub(\"Gi\", \"GB\", \$3); gsub(\"Gi\", \"GB\", \$2); print \"RAM \" \$3 \"/\" \$2}')"
 CPU="#(top -bn1 | grep \"Cpu(s)\" | awk '{printf \"CPU %04.1f%%\", \$2 + \$4}')"
 GIT="#(git -C #{pane_current_path} branch --show-current  | xargs -I {} echo  {})"
-TIME=$DATE_FORMAT
 SESSION="#S"
 USER="#(whoami)"
-TITLE=$(t_option @tmux_line_indicator 'TMUX')
 WEATHER=$(curl wttr.in/?format=%l:+%t)
+TITLE=$INDICATOR
+TIME=$DATE_FORMAT
 
-STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
-# ---------------------------------------
+apply_module_conf() {
+  case $2 in
+    *RAM*)
+      eval "$1=\$RAM"
+      ;;
+    *CPU*)
+      eval "$1=\$CPU"
+      ;;
+    *GIT*)
+      eval "$1=\$GIT"
+      ;;
+    *TIME*)
+      eval "$1=\$TIME"
+      ;;
+    *SESSION*)
+      eval "$1=\$SESSION"
+      ;;
+    *USER*)
+      eval "$1=\$USER"
+      ;;
+    *TITLE*)
+      eval "$1=\$TITLE"
+      ;;
+    *WEATHER*)
+      eval "$1=\$WEATHER"
+      ;;
+    *NONE*)
+      eval "$1="
+      ;;
+  esac
+}
 
-MODULE_A=$TITLE
-MODULE_B=$USER
-MODULE_C=$SESSION
+apply_module_conf MODULE_A "$MODULE_A"
+apply_module_conf MODULE_B "$MODULE_B"
+apply_module_conf MODULE_C "$MODULE_C"
+apply_module_conf MODULE_X "$MODULE_X"
+apply_module_conf MODULE_Y "$MODULE_Y"
+apply_module_conf MODULE_Z "$MODULE_Z"
 
-MODULE_X=$WEATHER
-MODULE_Y=$RAM
-MODULE_Z=$TIME
-
+# -------- SEPARATOR CONFIGURATION ENGINE
 case $STYLE in
   flat)
     SEP="▕▏"
@@ -80,9 +120,11 @@ case $STYLE in
     ;;
 esac
 
+
 # --------------------- GENERAL
 
 # Status options
+
 t_set status-style "fg=$FOREGROUND,bg=$BACKGROUND"
 t_set status-interval 1
 t_set status-justify "$JUSTIFY"
