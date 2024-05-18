@@ -51,28 +51,28 @@ MODULE_Z=$DATE_FORMAT
 # ---------------------------------------
 case $STYLE in
   flat)
-    a_arrow="▕▏"
-    i_rarrow=''
-    rarrow=''
-    larrow=''
+    SEP="▕▏"
+    R_SEP_ALT=''
+    R_SEP=''
+    L_SEP=''
     ;;
   angled)
-    a_arrow="  "
-    i_rarrow=''
-    rarrow=''
-    larrow=''
+    SEP="  "
+    R_SEP_ALT=''
+    R_SEP=''
+    L_SEP=''
     ;;
   arrow)
-    a_arrow="  "
-    i_rarrow=''
-    rarrow=''
-    larrow=''
+    SEP="  "
+    R_SEP_ALT=''
+    R_SEP=''
+    L_SEP=''
     ;;
   rounded)
-    a_arrow="▕▏"
-    i_rarrow=' '
-    rarrow=''
-    larrow=''
+    SEP="▕▏"
+    R_SEP_ALT=' '
+    R_SEP=''
+    L_SEP=''
     ;;
   *)
     echo "Unknown theme: $STYLE"
@@ -91,25 +91,28 @@ t_set status-attr none
 # ---------------------- LEFT SIDE OF STATUS BAR
 t_set status-left-length 150
 
-LS="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_A #[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$rarrow"
-LS="$LS#[fg=$WHITE,bg=$LIGHT_GREY] $MODULE_B #[fg=$LIGHT_GREY,bg=$DARK_GREY]$rarrow $MODULE_C #[fg=$DARK_GREY,bg=$NIL]$rarrow"
+LS_A="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_A #[fg=$STATUS_COLOR]"
+LS_B="#[bg=$LIGHT_GREY]$R_SEP#[fg=$WHITE] $MODULE_B #[fg=$LIGHT_GREY]"
+LS_C="#[bg=$DARK_GREY]$R_SEP #[fg=$LIGHT_GREY]$MODULE_C #[fg=$DARK_GREY]"
 
-t_set status-left "$LS"
+LS_END="#[bg=$NIL]$R_SEP"
+
+t_set status-left "$LS_A$LS_B$LS_C$LS_END"
 
 # --------------------- RIGHT SIDE OF STATUS BAR
 t_set status-right-length 150
 
-RS="#[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$larrow#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
-RS="#[fg=$LIGHT_GREY]$larrow#[fg=$WHITE]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y $RS"
+RS="#[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$L_SEP#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
+RS="#[fg=$LIGHT_GREY]$L_SEP#[fg=$WHITE]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y $RS"
 
-RS="#[fg=$DARK_GREY,bg=$NIL]$larrow#[fg=$WHITE,bg=$DARK_GREY] $MODULE_X $RS"
+RS="#[fg=$DARK_GREY,bg=$NIL]$L_SEP#[fg=$WHITE,bg=$DARK_GREY] $MODULE_X $RS"
 
 t_set status-right "$RS"
 
 # ---------------------------WINDOW STATUS FORMAT
-t_set window-status-format  "#[fg=$DARK_GREY,bg=default]#[bold]$i_rarrow#[fg=$WHITE,bg=$DARK_GREY] #I #W #[fg=$DARK_GREY,bg=$NIL]$rarrow"
+t_set window-status-format  "#[fg=$DARK_GREY,bg=default]#[bold]$R_SEP_ALT#[fg=$WHITE,bg=$DARK_GREY] #I #W #[fg=$DARK_GREY,bg=$NIL]$R_SEP"
 
-WS="#[fg=$STATUS_COLOR]#[bg=$NIL]#[bold]$i_rarrow#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] #I #W#{?window_zoomed_flag,$a_arrow , }#[fg=$STATUS_COLOR]#[bg=$NIL]$rarrow"
+WS="#[fg=$STATUS_COLOR]#[bg=$NIL]#[bold]$R_SEP_ALT#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] #I #W#{?window_zoomed_flag,$SEP , }#[fg=$STATUS_COLOR]#[bg=$NIL]$R_SEP"
 
 t_set window-status-current-format "$WS"
 # -----------------
