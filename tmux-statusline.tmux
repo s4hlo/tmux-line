@@ -134,9 +134,25 @@ t_set status-attr none
 # ---------------------- LEFT SIDE OF STATUS BAR
 t_set status-left-length 150
 
-LS_A="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_A #[fg=$STATUS_COLOR]"
-LS_B="#[bg=$LIGHT_GREY]$R_SEP#[fg=$FOREGROUND] $MODULE_B #[fg=$LIGHT_GREY]"
-LS_C="#[bg=$DARK_GREY]$R_SEP #[fg=$FOREGROUND]$MODULE_C #[fg=$DARK_GREY]"
+
+if [ -z "$MODULE_A" ]; then
+    LS_A="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] #[fg=$STATUS_COLOR]"
+else
+    LS_A="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_A #[fg=$STATUS_COLOR]"
+fi
+
+if [ -z "$MODULE_B" ]; then
+    LS_B=""
+else
+    LS_B="#[bg=$LIGHT_GREY]$R_SEP#[fg=$FOREGROUND] $MODULE_B #[fg=$LIGHT_GREY]"
+fi
+
+if [ -z "$MODULE_C" ]; then
+    LS_C=""
+else
+    LS_C="#[bg=$DARK_GREY]$R_SEP #[fg=$FOREGROUND]$MODULE_C #[fg=$DARK_GREY]"
+fi
+# STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
 
 LS_END="#[bg=$BACKGROUND]$R_SEP"
 
@@ -145,9 +161,24 @@ t_set status-left "$LS_A$LS_B$LS_C$LS_END"
 # --------------------- RIGHT SIDE OF STATUS BAR
 t_set status-right-length 150
 
-RS_X="#[bg=$BACKGROUND]#[fg=$DARK_GREY]$L_SEP#[bg=$DARK_GREY]#[fg=$FOREGROUND] $MODULE_X "
-RS_Y="#[fg=$LIGHT_GREY]$L_SEP#[fg=$FOREGROUND]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y⠀"
-RS_Z="#[fg=$STATUS_COLOR]$L_SEP#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
+if [ -z "$MODULE_X" ]; then
+    RS_X=""
+else
+    RS_X="#[bg=$BACKGROUND]#[fg=$DARK_GREY]$L_SEP#[bg=$DARK_GREY]#[fg=$FOREGROUND] $MODULE_X "
+fi
+
+if [ -z "$MODULE_Y" ]; then
+    RS_Y=""
+else
+    RS_Y="#[fg=$LIGHT_GREY]$L_SEP#[fg=$FOREGROUND]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y⠀"
+fi
+
+if [ -z "$MODULE_Z" ]; then
+    RS_Z=""
+else
+    RS_Z="#[fg=$STATUS_COLOR]$L_SEP#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
+fi
+
 
 t_set status-right "$RS_X$RS_Y$RS_Z"
 
