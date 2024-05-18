@@ -1,6 +1,8 @@
 
 ## A TMUX status line theme inspired by nvim status lines!
 
+![Alt text](./pics/module_setup_example.png)
+
 ##### To install use [tpm](https://github.com/tmux-plugins/tpm):
 
 Add the following to your .tmux.conf file:
@@ -9,6 +11,11 @@ set -g @plugin 's4hlo/tmux-line'
 ```
  
 #### Styles
+![Alt text](./pics/default_theme.png)
+![Alt text](./pics/flat_theme.png)
+![Alt text](./pics/arrow_theme.png)
+![Alt text](./pics/rounded_theme.png)
+
 ```bash
 set -g @line_style_separator 'angled' # or flat, arrow, rounded 
 set -g @line_style_justify 'left' #  or centre, right
