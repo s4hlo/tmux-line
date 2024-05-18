@@ -102,12 +102,11 @@ t_set status-left "$LS_A$LS_B$LS_C$LS_END"
 # --------------------- RIGHT SIDE OF STATUS BAR
 t_set status-right-length 150
 
-RS="#[fg=$STATUS_COLOR]#[bg=$LIGHT_GREY]$L_SEP#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
-RS="#[fg=$LIGHT_GREY]$L_SEP#[fg=$WHITE]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y $RS"
+RS_X="#[bg=$NIL]#[fg=$DARK_GREY]$L_SEP#[bg=$DARK_GREY]#[fg=$WHITE] $MODULE_X "
+RS_Y="#[fg=$LIGHT_GREY]$L_SEP#[fg=$WHITE]#[bg=$LIGHT_GREY]#[bold] $MODULE_Y⠀"
+RS_Z="#[fg=$STATUS_COLOR]$L_SEP#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
 
-RS="#[fg=$DARK_GREY,bg=$NIL]$L_SEP#[fg=$WHITE,bg=$DARK_GREY] $MODULE_X $RS"
-
-t_set status-right "$RS"
+t_set status-right "$RS_X$RS_Y$RS_Z"
 
 # ---------------------------WINDOW STATUS FORMAT
 t_set window-status-format  "#[fg=$DARK_GREY,bg=default]#[bold]$R_SEP_ALT#[fg=$WHITE,bg=$DARK_GREY] #I #W #[fg=$DARK_GREY,bg=$NIL]$R_SEP"
