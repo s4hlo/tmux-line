@@ -19,17 +19,17 @@ STYLE=$(t_option @tmux_line_style 'angled')
 JUSTIFY=$(t_option @tmux_line_justify 'left')
 
 # ------ THEME -------
-BLUE=$(t_option @tmux_line_color_blue "#698DDA")
-RED=$(t_option @tmux_line_color_red "#e06c75")
-PURPLE=$(t_option @tmux_line_color_purple "#c678dd")
-GREEN=$(t_option @tmux_line_color_green "#98c379")
+BASE=$(t_option @tmux_line_color_blue "#698DDA")
+SYNC=$(t_option @tmux_line_color_red "#e06c75")
+PREFIX=$(t_option @tmux_line_color_purple "#c678dd")
+COPY=$(t_option @tmux_line_color_copy "#98c379")
 
 WHITE=$(t_option @tmux_line_color_white "#abb2bf")
 LIGHT_GREY=$(t_option @tmux_line_color_light_grey "#3e4452")
 DARK_GREY=$(t_option @tmux_line_color_dark_grey "#282c34")
 NIL=$(t_option @tmux_line_color_nil "default")
 
-STATUS_COLOR="#{?client_prefix,$PURPLE,#{?pane_in_mode,$GREEN,#{?pane_synchronized,$RED,$BLUE}}}"
+STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
 
 # ---------------------------------------
 case $STYLE in
@@ -125,4 +125,4 @@ t_set message-style "fg=$STATUS_COLOR,bg=$NIL"
 t_set message-command-style "fg=$STATUS_COLOR,bg=$NIL"
 
 # Copy mode highlight
-t_set mode-style "bg=$GREEN,fg=$DARK_GREY"
+t_set mode-style "bg=$COPY,fg=$DARK_GREY"
