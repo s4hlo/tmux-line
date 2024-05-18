@@ -4,67 +4,65 @@
 ##### To install use [tpm](https://github.com/tmux-plugins/tpm):
 
 Add the following to your .tmux.conf file:
-
-	set -g @plugin 's4hlo/tmux-statusline'
-
-#### Configuration
-
+```
+set -g @plugin 's4hlo/tmux-line'
+```
+ 
+#### Styles
 ```bash
-# TODO add options
-set -g @line_indicator true
+set -g @line_style_separator 'angled' # or flat, arrow, rounded 
+set -g @line_style_justify 'left' #  or centre, right
 ```
 
-# ------- STYLE CUSTOMIZATION --------------
+#### Colors
+The plugin uses Onedark theme as default but you can change all the colors
+- To inherit transparency effects, set the background color to the terminal default.
 ```bash
-STYLE=$(t_option @line_style_separator 'angled')
-JUSTIFY=$(t_option @line_style_justify 'left')
-```
-
-# ------ COLORS CONFIGURATION -------
-
-```bash
+# modes colors
 set -g @line_color_base "#698DDA")
 set -g @line_color_sync "#e06c75")
 set -g @line_color_prefix "#c678dd")
 set -g @line_color_copy "#98c379")
-```
 
-```bash
 set -g @line_color_fg "#abb2bf")
 set -g @line_color_light "#3e4452")
 set -g @line_color_dark "#282c34")
 set -g @line_color_bg "default")
 ```
 
-### Modules
+#### Modules
+this plugin uses modules as shown below.
 
-
-# ------- SPECIAL MODULES CONFIGURATION ------
-```bash
-set -g @line_date_format '%H:%M'
-set -gn @line_indicator 'TMUX'
+```
++-------------------------------------------------+
+| A | B | C                             X | Y | Z |
++-------------------------------------------------+
 ```
 
-# ------ MODULES CONFIGURATION ------
-
-availables modules
--ram 
--cpu
--git
--session
--user
--weather
--title
--time
+Available modules:
+- `ram`: Displays RAM usage.
+- `cpu`: Displays CPU usage.
+- `git`: Displays Git Branch in the current panel.
+- `session`: Displays session information.
+- `user`: Displays current user information.
+- `weather`: Displays weather information.
+- `title`: Displays a custom text (default: "TMUX").
+- `time`: Displays current time in defined format (defalut: '%H:%M').
+- `none`: Disable module.
 
 
 ```bash
-set -g @line_module_a 'TITLE'
-set -g @line_module_b 'USER'
-set -g @line_module_c 'SESSION'
-set -g @line_module_x 'WEATHER'
-set -g @line_module_y 'RAM'
-set -g @line_module_z 'TIME'
+
+set -g @line_module_a 'title'
+set -g @line_module_b 'user'
+set -g @line_module_c 'session'
+set -g @line_module_x 'weather'
+set -g @line_module_y 'ram'
+set -g @line_module_z 'time'
+
+# this is specifc configuration for modules `time` and `time`
+set -g @line_date_format '%H:%M'
+set -gn @line_indicator 'TMUX'
 ```
 
 
