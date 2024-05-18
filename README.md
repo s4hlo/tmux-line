@@ -6,21 +6,16 @@
 Add the following to your .tmux.conf file:
 
 	set -g @plugin 's4hlo/tmux-statusline'
-
-#### Configuration
-
+ 
+### Configuration
+#
+##### Style
 ```bash
-# TODO add options
-set -g @line_indicator true
+set -g @line_style_separator 'angled'
+set -g @line_style_justify 'left'
 ```
 
-# ------- STYLE CUSTOMIZATION --------------
-```bash
-STYLE=$(t_option @line_style_separator 'angled')
-JUSTIFY=$(t_option @line_style_justify 'left')
-```
-
-# ------ COLORS CONFIGURATION -------
+##### Colors
 
 ```bash
 set -g @line_color_base "#698DDA")
@@ -36,16 +31,7 @@ set -g @line_color_dark "#282c34")
 set -g @line_color_bg "default")
 ```
 
-### Modules
-
-
-# ------- SPECIAL MODULES CONFIGURATION ------
-```bash
-set -g @line_date_format '%H:%M'
-set -gn @line_indicator 'TMUX'
-```
-
-# ------ MODULES CONFIGURATION ------
+#### Modules
 
 availables modules
 -ram 
@@ -59,12 +45,17 @@ availables modules
 
 
 ```bash
-set -g @line_module_a 'TITLE'
-set -g @line_module_b 'USER'
-set -g @line_module_c 'SESSION'
-set -g @line_module_x 'WEATHER'
-set -g @line_module_y 'RAM'
-set -g @line_module_z 'TIME'
+set -g @line_module_a 'title'
+set -g @line_module_b 'user'
+set -g @line_module_c 'session'
+set -g @line_module_x 'weather'
+set -g @line_module_y 'ram'
+set -g @line_module_z 'time'
+```
+ this is specifc configuration for modules `time` and `time`
+```bash
+set -g @line_date_format '%H:%M'
+set -gn @line_indicator 'TMUX'
 ```
 
 
