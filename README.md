@@ -52,9 +52,8 @@ set -g @line_module_c 'session'
 set -g @line_module_x 'weather'
 set -g @line_module_y 'ram'
 set -g @line_module_z 'time'
-```
- this is specifc configuration for modules `time` and `time`
-```bash
+
+# this is specifc configuration for modules `time` and `time`
 set -g @line_date_format '%H:%M'
 set -gn @line_indicator 'TMUX'
 ```
