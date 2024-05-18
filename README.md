@@ -4,18 +4,17 @@
 ##### To install use [tpm](https://github.com/tmux-plugins/tpm):
 
 Add the following to your .tmux.conf file:
-
-	set -g @plugin 's4hlo/tmux-line'
+```
+set -g @plugin 's4hlo/tmux-line'
+```
  
-### Configuration
-#
-##### Style
+#### Styles
 ```bash
 set -g @line_style_separator 'angled' # or flat, arrow, rounded 
 set -g @line_style_justify 'left' #  or centre, right
 ```
 
-##### Colors
+#### Colors
 The plugin uses Onedark theme as default but you can change all the colors
 - To inherit transparency effects, set the background color to the terminal default.
 ```bash
@@ -32,6 +31,13 @@ set -g @line_color_bg "default")
 ```
 
 #### Modules
+this plugin uses modules as shown below.
+
+```
++-------------------------------------------------+
+| A | B | C                             X | Y | Z |
++-------------------------------------------------+
+```
 
 Available modules:
 - `ram`: Displays RAM usage.
@@ -46,6 +52,7 @@ Available modules:
 
 
 ```bash
+
 set -g @line_module_a 'title'
 set -g @line_module_b 'user'
 set -g @line_module_c 'session'
