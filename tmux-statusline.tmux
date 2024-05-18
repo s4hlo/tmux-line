@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-#===============================================================================
+#====================
 #   Author: S4hlo
-#===============================================================================
+#====================
 
 t_option() {
     local value="$(tmux show -gqv "$1")"
@@ -95,6 +95,9 @@ t_set window-status-format  "#[fg=$DARK_GREY,bg=default]#[bold]$i_rarrow#[fg=$WH
 WS="#[fg=$STATUS_COLOR]#[bg=$NIL]#[bold]$i_rarrow#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] #I #W#{?window_zoomed_flag,$a_arrow , }#[fg=$STATUS_COLOR]#[bg=$NIL]$rarrow"
 
 t_set window-status-current-format "$WS"
+# -----------------
+
+
 
 # Window separator
 t_set window-status-separator ""
@@ -104,25 +107,13 @@ t_set window-status-style          "fg=$STATUS_COLOR,bg=$NIL,bold"
 t_set window-status-last-style     "fg=$STATUS_COLOR,bg=$NIL,none"
 t_set window-status-activity-style "fg=$STATUS_COLOR,bg=$NIL,bold"
 
-# Pane border
+# MISCELLANEOUS SYLE
 t_set pane-border-style "fg=$DARK_GREY,bg=default"
-
-# Active pane border
 t_set pane-active-border-style "fg=$STATUS_COLOR,bg=default"
-
-# Pane number indicator
 t_set display-panes-colour "$DARK_GREY"
 t_set display-panes-active-colour "$STATUS_COLOR"
-
-# Clock mode
 t_set clock-mode-colour "$STATUS_COLOR"
 t_set clock-mode-style 24
-
-# Message
 t_set message-style "fg=$STATUS_COLOR,bg=$NIL"
-
-# Command message
 t_set message-command-style "fg=$STATUS_COLOR,bg=$NIL"
-
-# Copy mode highlight
 t_set mode-style "bg=$COPY,fg=$DARK_GREY"
