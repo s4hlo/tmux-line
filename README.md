@@ -5,43 +5,44 @@
 
 Add the following to your .tmux.conf file:
 
-	set -g @plugin 's4hlo/tmux-statusline'
+	set -g @plugin 's4hlo/tmux-line'
  
 ### Configuration
 #
 ##### Style
 ```bash
-set -g @line_style_separator 'angled'
-set -g @line_style_justify 'left'
+set -g @line_style_separator 'angled' # or flat, arrow, rounded 
+set -g @line_style_justify 'left' #  or centre, right
 ```
 
 ##### Colors
-
+The plugin uses Onedark theme as default but you can change all the colors
 ```bash
+# modes colors
 set -g @line_color_base "#698DDA")
 set -g @line_color_sync "#e06c75")
 set -g @line_color_prefix "#c678dd")
 set -g @line_color_copy "#98c379")
-```
 
-```bash
 set -g @line_color_fg "#abb2bf")
 set -g @line_color_light "#3e4452")
 set -g @line_color_dark "#282c34")
+# default set use the terminal color works well with transparent terminals
 set -g @line_color_bg "default")
 ```
 
 #### Modules
 
-availables modules
--ram 
--cpu
--git
--session
--user
--weather
--title
--time
+Available modules:
+- `ram`: Displays RAM usage.
+- `cpu`: Displays CPU usage.
+- `git`: Displays Git Branch in the current panel.
+- `session`: Displays session information.
+- `user`: Displays current user information.
+- `weather`: Displays weather information.
+- `title`: Displays a custom text (default: "TMUX").
+- `time`: Displays current time.
+- `none`: Disable module.
 
 
 ```bash
