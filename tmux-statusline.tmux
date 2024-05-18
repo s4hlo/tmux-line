@@ -27,28 +27,29 @@ LIGHT_GREY=$(t_option @tmux_line_color_light_grey "#3e4452")
 DARK_GREY=$(t_option @tmux_line_color_dark_grey "#282c34")
 NIL=$(t_option @tmux_line_color_nil "default")
 
-STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
+DATE_FORMAT=$(t_option @tmux_power_date_format '%H:%M')
 
-# TODO modules 
+# MODULES OPTIONS
 RAM="#(free -h | awk '/^Mem:/ {gsub(\"Gi\", \"GB\", \$3); gsub(\"Gi\", \"GB\", \$2); print \"RAM \" \$3 \"/\" \$2}')"
 CPU="#(top -bn1 | grep \"Cpu(s)\" | awk '{printf \"CPU %04.1f%%\", \$2 + \$4}')"
 GIT="#(git -C #{pane_current_path} branch --show-current  | xargs -I {} echo  {})"
-DATE_FORMAT=$(t_option @tmux_power_date_format '%H:%M')
+TIME=$DATE_FORMAT
 SESSION="#S"
 USER="#(whoami)"
-CUSTOM=$(t_option @tmux_line_indicator 'TMUX')
+TITLE=$(t_option @tmux_line_indicator 'TMUX')
+WEATHER=$(curl wttr.in/?format=%l:+%t)
 
-MODULE_A=$CUSTOM
+STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
+# ---------------------------------------
+
+MODULE_A=$TITLE
 MODULE_B=$USER
 MODULE_C=$SESSION
 
-MODULE_X=$SESSION
+MODULE_X=$WEATHER
 MODULE_Y=$RAM
-MODULE_Z=$DATE_FORMAT
+MODULE_Z=$TIME
 
-
-
-# ---------------------------------------
 case $STYLE in
   flat)
     SEP="▕▏"
@@ -93,7 +94,7 @@ t_set status-left-length 150
 
 LS_A="#[fg=$DARK_GREY]#[bg=$STATUS_COLOR]#[bold] $MODULE_A #[fg=$STATUS_COLOR]"
 LS_B="#[bg=$LIGHT_GREY]$R_SEP#[fg=$WHITE] $MODULE_B #[fg=$LIGHT_GREY]"
-LS_C="#[bg=$DARK_GREY]$R_SEP #[fg=$LIGHT_GREY]$MODULE_C #[fg=$DARK_GREY]"
+LS_C="#[bg=$DARK_GREY]$R_SEP #[fg=$WHITE]$MODULE_C #[fg=$DARK_GREY]"
 
 LS_END="#[bg=$NIL]$R_SEP"
 
@@ -115,8 +116,6 @@ WS="#[fg=$STATUS_COLOR]#[bg=$NIL]#[bold]$R_SEP_ALT#[fg=$DARK_GREY]#[bg=$STATUS_C
 
 t_set window-status-current-format "$WS"
 # -----------------
-
-
 
 # Window separator
 t_set window-status-separator ""
