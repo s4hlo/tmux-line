@@ -1,7 +1,7 @@
 
 ## A TMUX status line theme inspired by nvim status lines!
 
-![Alt text](./pics/module_setup_example.png)
+![Alt text](./pics/preview.gif)
 
 ##### To install use [tpm](https://github.com/tmux-plugins/tpm):
 
