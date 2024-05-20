@@ -15,18 +15,20 @@ t_set() {
 # ------- STYLE CUSTOMIZATION --------------
 STYLE=$(t_option @line_style_separator 'angled')
 JUSTIFY=$(t_option @line_style_justify 'left')
+FLOAT=$(t_option @line_style_float false)
 
 # ------ COLORS CONFIGURATION -------
-BASE=$(t_option @line_color_base "#698DDA")
+BASE=$(t_option @line_color_base "#61afef")
 SYNC=$(t_option @line_color_sync "#e06c75")
 PREFIX=$(t_option @line_color_prefix "#c678dd")
 COPY=$(t_option @line_color_copy "#98c379")
-STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
 
 FOREGROUND=$(t_option @line_color_fg "#abb2bf")
 LIGHT=$(t_option @line_color_light "#3e4452")
 DARK=$(t_option @line_color_dark "#282c34")
 BACKGROUND=$(t_option @line_color_bg "default")
+
+STATUS_COLOR="#{?client_prefix,$PREFIX,#{?pane_in_mode,$COPY,#{?pane_synchronized,$SYNC,$BASE}}}"
 
 # ------- SPECIAL MODULES CONFIGURATION ------
 DATE_FORMAT=$(t_option @line_date_format '%H:%M')
@@ -39,6 +41,12 @@ MODULE_C=$(t_option @line_module_c 'session')
 MODULE_X=$(t_option @line_module_x 'weather')
 MODULE_Y=$(t_option @line_module_y 'ram')
 MODULE_Z=$(t_option @line_module_z 'time')
+
+
+
+############# ENGINES #############
+
+
 
 # MODULES OPTIONS
 RAM="#(free -h | awk '/^Mem:/ {gsub(\"Gi\", \"GB\", \$3); gsub(\"Gi\", \"GB\", \$2); print \"RAM \" \$3 \"/\" \$2}')"
@@ -156,7 +164,12 @@ fi
 
 LS_END="#[bg=$BACKGROUND]$R_SEP"
 
-t_set status-left "$LS_A$LS_B$LS_C$LS_END"
+
+if $FLOAT; then
+   L_FLOAT=" #[fg=$STATUS_COLOR]#[bg=$BACKGROUND]$L_SEP"
+fi
+
+t_set status-left "$L_FLOAT$LS_A$LS_B$LS_C$LS_END"
 
 # --------------------- RIGHT SIDE OF STATUS BAR
 t_set status-right-length 150
@@ -179,8 +192,12 @@ else
     RS_Z="#[fg=$STATUS_COLOR]$L_SEP#[fg=$DARK]#[bg=$STATUS_COLOR]#[bold] $MODULE_Z⠀"
 fi
 
+if $FLOAT; then
+   R_FLOAT="#[fg=$STATUS_COLOR]#[bg=$BACKGROUND]$R_SEP "
+fi
 
-t_set status-right "$RS_X$RS_Y$RS_Z"
+t_set status-right "$RS_X$RS_Y$RS_Z$R_FLOAT"
+
 
 # ---------------------------WINDOW STATUS FORMAT
 t_set window-status-format  "#[fg=$DARK,bg=default]#[bold]$R_SEP_ALT#[fg=$FOREGROUND,bg=$DARK] #I #W #[fg=$DARK,bg=$BACKGROUND]$R_SEP"
