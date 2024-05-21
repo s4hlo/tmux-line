@@ -1,29 +1,30 @@
 
 ## A TMUX status line theme inspired by nvim status lines!
+![Alt text](./pics/title.gif)
 
-![Alt text](./pics/preview.gif)
 
-##### To install use [tpm](https://github.com/tmux-plugins/tpm):
+### highlight each tmux mode with a diferent color( e.g when the prefix is pressed)
+![Alt text](./pics/showcase.gif)
 
-Add the following to your .tmux.conf file:
-```
+### Install
+To install use [tpm](https://github.com/tmux-plugins/tpm), add the following to your .tmux.conf file:
+```bash
 set -g @plugin 's4hlo/tmux-line'
 ```
  
-#### Styles
-![Alt text](./pics/default_theme.png)
-![Alt text](./pics/flat_theme.png)
-![Alt text](./pics/arrow_theme.png)
-![Alt text](./pics/rounded_theme.png)
-
+### Styles
+![styles](./pics/stylex2.gif)
 ```bash
 set -g @line_style_separator 'angled' # or flat, arrow, rounded 
 set -g @line_style_justify 'left' #  or centre, right
 ```
 
-#### Colors
+### Colors
+
+
 The plugin uses Onedark theme as default but you can change all the colors
 - To inherit transparency effects, set the background color to the terminal default.
+- ![Alt text](./pics/transparency.gif)
 ```bash
 # modes colors
 set -g @line_color_base "#698DDA"
@@ -37,7 +38,7 @@ set -g @line_color_dark "#282c34"
 set -g @line_color_bg "default"
 ```
 
-#### Modules
+### Modules
 this plugin uses modules as shown below.
 
 ```
@@ -67,7 +68,7 @@ set -g @line_module_x 'weather'
 set -g @line_module_y 'ram'
 set -g @line_module_z 'time'
 
-# this is specifc configuration for modules `time` and `time`
+# this is specifc configuration for modules `time` and `title`
 set -g @line_date_format '%H:%M'
 set -g @line_indicator 'TMUX'
 ```
